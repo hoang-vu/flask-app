@@ -2,7 +2,7 @@
   """
 
 from flask import Flask
-
+import requests
 app = Flask(__name__)
 
 @app.route('/')
@@ -13,8 +13,8 @@ def hello_world(username=None):
 def predict():
     if request.method == 'POST':
         try:
-            data = request.get_json()
-            lin_reg = joblib.load("./linear_simple.pkl")
+            data = requests.get_json()
+            #lin_reg = joblib.load("./linear_simple.pkl")
         except ValueError:
             print("value error encountered")
 
