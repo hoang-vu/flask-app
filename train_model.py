@@ -9,9 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # import dataset
-min_temp = pd.read_csv("MelbournePark_min_temp_2014_Data.csv")
-max_temp = pd.read_csv("MelbournePark_max_temp_2014_Data.csv")
-rainfall = pd.read_csv("MelbournePark_rainfall_2014_Data.csv")
+# Need to enable when getting bigger dataset
 hospt = pd.read_csv("hospitalisation-20152016.csv")
 
 data = pd.read_csv("python_hospitalisation_2014.csv")
@@ -19,18 +17,24 @@ data = pd.read_csv("python_hospitalisation_2014.csv")
 data.columns =["season","year","month","week","2yo","5yo","15yo","35yo","65yo","min_temp","max_temp","rain"]
 
 # Create sub datasets
-subdata = pd.DataFrame(data = {"season":data["season"],"week": data["week"],"min": data["min_temp"],"max":data["max_temp"],"rain":data["rain"],"2yo":data["2yo"]})
-subdata["week"] = subdata["week"].astype('category')
-subdata["season"] = subdata["season"].astype('category')
-season_dummies = pd.get_dummies(subdata["season"])
-week_dummies = pd.get_dummies(subdata["week"])
-subdata = pd.concat([subdata, season_dummies, week_dummies], axis = 1)
+# subdata = pd.DataFrame(data = {"season":data["season"],"week": data["week"],"min": data["min_temp"],"max":data["max_temp"],"rain":data["rain"],"2yo":data["2yo"]})
+# subdata["week"] = subdata["week"].astype('category')
+# subdata["season"] = subdata["season"].astype('category')
+# season_dummies = pd.get_dummies(subdata["season"])
+# week_dummies = pd.get_dummies(subdata["week"])
+# subdata = pd.concat([subdata, season_dummies, week_dummies], axis = 1)
+
+#print(subdata)
+traindata = pd.DataFrame(data = {"2yo" : data["2yo"],"mintemp":subdata["min"],"maxtemp":subdata["max"]})
+#print(traindata)
+traindata["change"] = traindata["maxtemp"] - traindata["mintemp"]
 
 # model building
-lasso = linear_model.Lasso(alpha = 0.5)
+lasso = linear_model.Lasso(alpha = 0.05)
 
-train = subdata.drop(["season","2yo","week"],axis = 1)
-labels = subdata["2yo"]
+#model building
+train = traindata.drop(["2yo"],axis = 1)
+labels = traindata["2yo"]
 x_train, x_test, y_train, y_test = train_test_split(train, labels, test_size = 0.25,random_state = 1)
 
 model = lasso.fit(x_train,y_train)

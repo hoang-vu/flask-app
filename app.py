@@ -2,6 +2,10 @@
   """
 
 from flask import Flask, jsonify, request
+import pandas as pd
+from sklearn import linear_model
+from sklearn.externals import joblib
+import numpy as np
 
 app = Flask(__name__)
 
@@ -14,21 +18,26 @@ def hello_world(username=None):
 def get():
     if request.method == 'GET':
         try:
-            r = request.args.get('temp')
+            def pred():
+                min = request.args.get("mintemp")
+                min = float(min)
+                max = request.args.get("maxtemp")
+                max = float(max)
+                change = max - min
+                modelln = joblib.load('./linear_simple.pkl')
+                co = pd.Series(modelln.coef_).to_json()
+                # t = pd.DataFrame({'mintemp': min, 'maxtemp': max, 'change': change}, index = [0])
+                # arr = t.as_matrix()
+                #data = {'mintemp': min, 'maxtemp': max, 'change': change}
+                #__data__ = pd.Series(data).to_frame()
+                #arr = np.array([max,min,change])
+                #temp = [max,min,change]
+                #arr = [temp]
+                #my_fuckingy = model_ln.predict(arr)
+                return(co)
         except ValueError:
             print("erros")
-    return(r * 10)
-
-@app.route('/post', methods = ['POST'])
-def post():
-    if request.method == 'POST':
-        try:
-            data = "lkjasd"
-        except ValueError:
-            print("value error encountered")
-
-        return(r)
-        #return jsonify(lin_reg.predict(x_pred).tolist())
+    return(pred())
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", debug=True, port=1200)
