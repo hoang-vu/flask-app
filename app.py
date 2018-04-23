@@ -19,11 +19,11 @@ def get():
     if request.method == 'GET':
         try:
             def pred():
-                min = request.args.get("mintemp")
-                min = float(min)
-                max = request.args.get("maxtemp")
-                max = float(max)
-                change = max - min
+                #min = request.args.get("mintemp")
+                #min = float(min)
+                #max = request.args.get("maxtemp")
+                #max = float(max)
+                #change = max - min
                 modelln = joblib.load('./linear_simple.pkl')
                 co = pd.Series(modelln.coef_).to_json()
                 # t = pd.DataFrame({'mintemp': min, 'maxtemp': max, 'change': change}, index = [0])
