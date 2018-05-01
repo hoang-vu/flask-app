@@ -6,7 +6,7 @@ import pandas as pd
 from sklearn import linear_model
 from sklearn.externals import joblib
 import numpy as np
-from flask_cors import CORS, cross-origin
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -17,6 +17,7 @@ def hello_world(username=None):
     return("Hello")
 
 @app.route('/get', methods = ['GET'])
+@cross_origin()
 def get():
     if request.method == 'GET':
         try:
@@ -40,7 +41,7 @@ def get():
         except ValueError:
             print("erros")
     return(pred())
-@cross_origin()
+
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", debug=True, port=1200)
