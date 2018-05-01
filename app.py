@@ -9,7 +9,7 @@ import numpy as np
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-cors = CORS(app)
+cors = CORS(app, resources = {r"/get": {"origin": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
@@ -17,7 +17,7 @@ def hello_world(username=None):
     return("Hello")
 
 @app.route('/get', methods = ['GET'])
-@cross_origin()
+@cross_origin(origin='*', headers=['Content- Type','Authorization'])
 def get():
     if request.method == 'GET':
         try:
