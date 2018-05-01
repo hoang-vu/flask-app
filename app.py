@@ -17,7 +17,7 @@ def hello_world(username=None):
     return("Hello")
 
 @app.route('/get', methods = ['GET'])
-@cross_origin(origin='*', headers=['Content- Type','Authorization'])
+@cross_origin(origin='*', headers=['Content-Type','Authorization'])
 def get():
     if request.method == 'GET':
         try:
