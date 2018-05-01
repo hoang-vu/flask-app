@@ -6,7 +6,7 @@ import pandas as pd
 from sklearn import linear_model
 from sklearn.externals import joblib
 import numpy as np
-from flask-cors import CORS, cross-origin
+from flask_cors import CORS, cross-origin
 
 app = Flask(__name__)
 cors = CORS(app)
