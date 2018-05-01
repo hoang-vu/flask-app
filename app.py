@@ -44,4 +44,4 @@ def get():
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", debug=True, port=1200)
+    app.run(debug=True)
