@@ -6,9 +6,11 @@ import pandas as pd
 from sklearn import linear_model
 from sklearn.externals import joblib
 import numpy as np
+from flask-cors import CORS, cross-origin
 
 app = Flask(__name__)
-
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def hello_world(username=None):
@@ -38,6 +40,7 @@ def get():
         except ValueError:
             print("erros")
     return(pred())
+@cross_origin()
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", debug=True, port=1200)
