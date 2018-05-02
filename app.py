@@ -9,15 +9,16 @@ import numpy as np
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-#cors = CORS(app, resources = {r"/get": {"origin": "https://aspronto-pal.ml"}})
-#app.config['CORS_HEADERS'] = 'Content-Type'
-#@cross_origin(origin='https://aspronto-pal.ml', headers=['Content-Type','Authorization'])
+cors = CORS(app, resources = {r"/get": {"origin": "https://aspronto-pal.ml"}})
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 @app.route('/')
 def hello_world(username=None):
     return("Hello")
 
 @app.route('/get', methods = ['GET'])
+@cross_origin(origin='https://aspronto-pal.ml', headers=['Content-Type','Authorization'])
 def get():
     if request.method == 'GET':
         try:
