@@ -9,8 +9,8 @@ import numpy as np
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-cors = CORS(app, resources = {r"/get": {"origin": "https://aspronto-pal.ml"}})
-app.config['CORS_HEADERS'] = 'Content-Type'
+#cors = CORS(app, resources = {r"/get": {"origin": "https://aspronto-pal.ml"}})
+#app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def hello_world(username=None):
@@ -45,3 +45,7 @@ def get():
 
 if __name__ == "__main__":
     app.run()
+
+# if __name__ == "__main__":
+#     app.run(host = "127.0.0.1", port = 5000, debug=True)
+
