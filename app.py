@@ -47,8 +47,8 @@ def get():
                     r = "critical"
                 else:
                     r = "medium"
-
-                return(r)
+                result = {"risk_level":r}
+                return(jsonify(result))
 
         except ValueError:
             print("errors")
