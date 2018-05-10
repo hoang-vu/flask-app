@@ -29,9 +29,9 @@ def get():
                 modelln = pickle.load(pkl_file)
 
                 # Read arguments
-                min = request.args.get("mintemp")
+                min = request.args.get("min")
                 min = float(min)
-                max = request.args.get("maxtemp")
+                max = request.args.get("max")
                 max = float(max)
                 rainfall = request.args.get("rainfall")
                 rainfall = float(rainfall)
