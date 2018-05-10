@@ -44,10 +44,9 @@ def get():
                 # Determine threshold
                 result = {"risk_level":res[0]}
                 return(jsonify(result))
-            result = pred()
         except ValueError:
             print("Unexpected errors encountered")
-    return(result)
+    return(pred())
 
 @app.route("/retrain")
 def retrain():
