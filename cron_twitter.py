@@ -27,12 +27,12 @@ item = auth_api.get_user(target_id)
 # Auxiliary functions
 # Get latest tweet
 def get_last_tweet(id):
-    tweet = auth_api.user_timeline(id=id, count = 1)
+    tweet = auth_api.user_timeline(id=id, count = 5)
     json_store(tweet[0]._json)
 
 # Store as JSON
 def json_store(data):
-    with open('status.txt','w') as outfile:
+    with open('status.json','a+') as outfile:
         json.dump(data, outfile)
 
 get_last_tweet(target_id)

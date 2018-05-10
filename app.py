@@ -2,6 +2,7 @@
   """
 
 from flask import Flask, jsonify, request
+import pickle
 import pandas as pd
 from sklearn import linear_model
 from sklearn.externals import joblib
@@ -24,27 +25,31 @@ def get():
         try:
             def pred():
                 # Load model pickle
-                modelln = joblib.load('./linear_simple.pkl')
-                coef = pd.Series(modelln.coef_).to_json()
+                pkl_file = open('pickle_model.pkl', 'rb')
+                modelln = pickle.load(pkl_file)
 
                 # Read arguments
-                #min = request.args.get("mintemp")
-                #min = float(min)
-                #max = request.args.get("maxtemp")
-                #max = float(max)
-                #rainfall = request.args.get("rainfall")
-                #rainfall = float(rainfall)
-                #change = max - min
+                min = request.args.get("mintemp")
+                min = float(min)
+                max = request.args.get("maxtemp")
+                max = float(max)
+                rainfall = request.args.get("rainfall")
+                rainfall = float(rainfall)
+                change = max - min
 
-                # t = pd.DataFrame({'mintemp': min, 'maxtemp': max, 'change': change, 'rainfall' = rainfall}, index = [0])
-                # arr = t.as_matrix()
-                #data = {'mintemp': min, 'maxtemp': max, 'change': change}
-                #__data__ = pd.Series(data).to_frame()
-                #arr = np.array([max,min,change])
-                #temp = [max,min,change]
-                #arr = [temp]
-                #pred = model_ln.predict(arr)
-                return(coef)
+                df = pd.DataFrame([[min, max, rainfall, change]])
+                res = modelln.predict(df)
+
+                # Determine threshold
+                if (res[0] < 14):
+                    r = "low"
+                elif res > 23:
+                    r = "critical"
+                else:
+                    r = "medium"
+
+                return(r)
+
         except ValueError:
             print("errors")
     return(pred())

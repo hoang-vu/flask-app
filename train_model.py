@@ -26,10 +26,10 @@ ridge = linear_model.Ridge(alpha = 0.05)
 
 # Model training
 traindata = train.drop(["hosp"],axis = 1)
-labels = traindata["hosp"]
+labels = train["hosp"]
 x_train, x_test, y_train, y_test = train_test_split(traindata, labels, test_size = 0.25,random_state = 5)
 
 model = ridge.fit(x_train,y_train)
 
 # save model as pickle
-joblib.dump(model, 'linear_simple.pkl')
+joblib.dump(model, 'linear_simple_1.pkl', 2)
