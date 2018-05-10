@@ -25,8 +25,8 @@ def get():
         try:
             def pred():
                 # Load model pickle
-                pkl_file = open('pickle_model.pkl', 'rb')
-                modelln = pickle.load(pkl_file)
+                pkl_file = open('log_model_pickle.pkl', 'rb')
+                model = pickle.load(pkl_file)
 
                 # Read arguments
                 min = request.args.get("min")
@@ -36,22 +36,16 @@ def get():
                 rainfall = request.args.get("rainfall")
                 rainfall = float(rainfall)
                 change = max - min
+                pollen = 0
 
-                df = pd.DataFrame([[min, max, rainfall, change]])
-                res = modelln.predict(df)
+                df = pd.DataFrame([[change, max, min, pollen,rainfall]])
+                res = model.predict(df)
 
                 # Determine threshold
-                if (res[0] < 14):
-                    r = "low"
-                elif res > 23:
-                    r = "critical"
-                else:
-                    r = "medium"
-                result = {"risk_level":r}
+                result = {"risk_level":res[0]}
                 return(jsonify(result))
-
         except ValueError:
-            print("errors")
+            print("Unexpected errors encountered")
     return(pred())
 
 @app.route("/retrain")
