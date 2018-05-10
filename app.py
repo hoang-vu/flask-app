@@ -36,7 +36,7 @@ def get():
                 rainfall = request.args.get("rainfall")
                 rainfall = float(rainfall)
                 change = max - min
-                pollen = 0
+                pollen = 0 # default value of pollen
 
                 df = pd.DataFrame([[change, max, min, pollen,rainfall]])
                 res = model.predict(df)
@@ -44,9 +44,10 @@ def get():
                 # Determine threshold
                 result = {"risk_level":res[0]}
                 return(jsonify(result))
+            result = pred()
         except ValueError:
             print("Unexpected errors encountered")
-    return(pred())
+    return(result)
 
 @app.route("/retrain")
 def retrain():
