@@ -6,7 +6,7 @@ from sklearn.cross_validation import train_test_split
 import pickle
 
 # import dataset
-df = pd.read_csv("hospitalisation-20152016_pyready.csv")
+df = pd.read_csv("data/hospitalisation-20152016_pyready.csv")
 df["change"] = df["max"] - df["min"]
 
 # Rename columns name for user friendly reason

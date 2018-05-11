@@ -1,9 +1,10 @@
 """Filename: app.py
   """
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 import pickle
 import pandas as pd
+import datetime
 from sklearn import linear_model
 from sklearn.externals import joblib
 import numpy as np
@@ -15,8 +16,8 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route('/')
-def hello_world():
-    return("Hello world")
+def index():
+    return(render_template('index.html', title='Home'))
 
 @app.route('/get', methods = ['GET'])
 @cross_origin(origin='https://aspronto-pal.ml', headers=['Content-Type','Authorization'])
@@ -25,7 +26,7 @@ def get():
         try:
             def pred():
                 # Load model pickle
-                pkl_file = open('log_model_pickle.pkl', 'rb')
+                pkl_file = open('pickle/log_model_pickle.pkl', 'rb')
                 model = pickle.load(pkl_file)
 
                 # Read arguments
@@ -48,9 +49,14 @@ def get():
             print("Unexpected errors encountered")
     return(pred())
 
-@app.route("/retrain")
-def retrain():
-    print("This function is under construction")
+@app.route("/get/pollen", methods = ['GET'])
+def getpollen():
+    date = datetime.date.today()
+    station = "Melbourne"
+    result = {"pollen": 12,
+              "station":station,
+              "date" : date}
+    return(jsonify(result))
 
 # if __name__ == "__main__":
 #     app.run()

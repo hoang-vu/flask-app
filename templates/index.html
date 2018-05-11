@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>API guide</title>
+</head>
+<body>
+	<h1>API guideline</h1>
+	<table border="1px">
+		<thead>
+			<tr>
+				<th>Method</th>
+				<th>Syntax</th>
+				<th colspan="2">Parameters</th>
+				<th>Data type</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- first row -->
+			<tr>
+				<td rowspan="3">GET</td>
+				<td rowspan="3">/get?min=12&max=33&rainfall=8.9</td>
+				<td>min</td>
+				<td>minimum temperature</td>
+				<td>float</td>
+				<td rowspan="3">This method retrieves the asthma level under JSON format</td>					
+			</tr>
+			<tr>
+				<td>max</td>
+				<td>maximum temperature</td>
+				<td>float</td>					
+			</tr>
+			<tr>
+				<td>rainfall</td>
+				<td>precipitation of rain</td>
+				<td>float</td>
+			</tr>
+			<!-- second row -->
+			<tr>
+				<td>GET</td>
+				<td>/get/pollen</td>
+				<td>N/A</td>
+				<td>N/A</td>
+				<td>N/A</td>
+				<td>This method calls the pollen count of today from the stored data</td>					
+			</tr>
+			</tr>			
+		</tbody>
+	</table>
+</body>
+</html>
